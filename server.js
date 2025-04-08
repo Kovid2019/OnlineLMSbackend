@@ -1,4 +1,5 @@
 import express from "express";
+import usersRoute from "./src/routes/usersRoute.js";
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -17,6 +18,7 @@ import authRoute from "./src/routes/authRoute.js";
 import { errorHandler } from "./src/middleware/errorHandler.js";
 import { responseClient } from "./src/middleware/responseClient.js";
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/user", usersRoute);
 
 //Server status
 app.get("/", (req, res) => {

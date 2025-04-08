@@ -34,7 +34,15 @@ POST {{rootUrl}}/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "a3@a.com",
+    "email": "a2@a.com",
     "password": "Roh@123"
     
 }
+### Get user's profile
+GET  {{rootUrl}}/api/v1/user/profile
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzQyNDQ1NTg0LCJleHAiOjE3NDI0NDY0ODR9.XMakYjxnvrkKvhfPq2KbO31v6DU5zMmN-ARy8rWSvC8
+
+
+### Renew AccessJWT 
+GET  {{rootUrl}}/api/v1/auth/renew-jwt
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzQyNDQ1NTM4LCJleHAiOjE3NDUwMzc1Mzh9.JWPSDuYa1vxaNF1oAcTscpjZg9SRk2_z_e-2CK3p6pM

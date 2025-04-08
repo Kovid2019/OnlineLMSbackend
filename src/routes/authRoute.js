@@ -9,6 +9,7 @@ import {
   newUserDataValidation,
   userActivationDataValidation,
 } from "../middleware/validations/authDataValidation.js";
+import { renewAccessJWTMiddleware } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ const router = express.Router();
 router.post("/register", newUserDataValidation, insertNewUser);
 router.post("/activate-user", userActivationDataValidation, activateUser);
 router.post("/login", loginDataValidation, loginUser);
+router.get("/renew-jwt", renewAccessJWTMiddleware);
 
 export default router;
