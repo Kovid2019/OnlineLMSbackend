@@ -1,6 +1,7 @@
 import { responseClient } from "../middleware/responseClient.js";
 import {
   createNewSession,
+  deleteManySessions,
   deleteSession,
 } from "../models/session/SessionModel.js";
 import {
@@ -126,6 +127,20 @@ export const loginUser = async (req, res, next) => {
     const message = "Invalid Login details!";
     const statusCode = 401;
     responseClient({ req, res, message, statusCode });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logoutUser = async (req, res, next) => {
+  try {
+    //Get the token
+    const { email } = req.userInfo;
+    //Update refresh token(refreshJWT) to ""
+    await updateUser({ email }, { refreshJWT: "" });
+    //Remove the accessJWT from session table.
+    await deleteManySessions({ association: email });
+    responseClient({ req, res, message: "You are logged out successfully..!" });
   } catch (error) {
     next(error);
   }
