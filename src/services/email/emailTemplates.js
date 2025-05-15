@@ -42,3 +42,46 @@ export const userAccountActivatedNotificationTemplate = ({ email, name }) => {
     `, // html body
   };
 };
+
+export const passwordResetOTPSendTemplate = ({ email, name, otp }) => {
+  return {
+    from: `"Local Library" <${process.env.SMTP_EMAIL}>`, // sender address
+    to: email, // list of receivers
+    subject: "Your OTP to reset the password.", // Subject line
+    text: `Hello.. ${name}, Here is your OTP to reset the password. This OTP will expire in 5 min. OTP is ${otp}`, // plain text body
+    html: `
+    <p> Hellow ${name}</p>
+    <br>
+    <br>
+    <p> Here is your OTP to reset the password. This OTP will expire in 5 min.</p>
+    <br>
+    <br>
+    <p> OTP is ${otp}</p>
+    <br>
+    Regards,
+    <br>
+    ---
+    `, // html body
+  };
+};
+export const userProfileUpdatedNotificationTemplate = ({ email, name }) => {
+  return {
+    from: `"Local Library" <${process.env.SMTP_EMAIL}>`, // sender address
+    to: email, // list of receivers
+    subject: "Your account has been updated..", // Subject line
+    text: `Hello.. ${name}, Your account has been just updated. If this wasn't you, contact us and change your password.`, // plain text body
+    html: `
+    <p> Hellow ${name}</p>
+    <br>
+    <br>
+    <p> Your account has been just updated. If this wasn't you, contact us and change your password.</p>
+    <br>
+    <br>
+    
+    <br>
+    Regards,
+    <br>
+    ---
+    `, // html body
+  };
+};

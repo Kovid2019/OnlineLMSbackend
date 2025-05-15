@@ -3,6 +3,7 @@ import {
   createNewSession,
   deleteManySessions,
   deleteSession,
+  getSession,
 } from "../models/session/SessionModel.js";
 import {
   createNewUser,
@@ -10,12 +11,15 @@ import {
   updateUser,
 } from "../models/user/userModel.js";
 import {
+  passwordResetOTPNotificationEmail,
   userActivatedNotificationEmail,
   userActivationUrlEmail,
+  userProfileUpdatedNotificationEmail,
 } from "../services/email/emailService.js";
 import { comparePassword, hashPassword } from "../utils/bcrypt.js";
 import { v4 as uuidv4 } from "uuid";
 import { getJwts } from "../utils/jwt.js";
+import { generateRandomOTP } from "../utils/randomGenerator.js";
 
 export const insertNewUser = async (req, res, next) => {
   try {
@@ -141,6 +145,74 @@ export const logoutUser = async (req, res, next) => {
     //Remove the accessJWT from session table.
     await deleteManySessions({ association: email });
     responseClient({ req, res, message: "You are logged out successfully..!" });
+  } catch (error) {
+    next(error);
+  }
+};
+export const generateOTP = async (req, res, next) => {
+  try {
+    //Get the Email from body
+    const { email } = req.body;
+    //Get the user by email(TO check if the user exists)
+    const user = typeof email === "string" ? await getUserByEmail(email) : null;
+    if (user?._id) {
+      //Generate OTP
+      const otp = generateRandomOTP();
+
+      //Store in session table
+      const session = await createNewSession({
+        token: otp,
+        association: email,
+        expire: new Date(Date.now() + 5 * 60 * 1000), // 5 minutes expiration
+      });
+      if (session?._id) {
+        console.log(session);
+        //Send OTP to user email
+        const info = passwordResetOTPNotificationEmail({
+          email,
+          name: user.fName,
+          otp,
+        });
+        console.log(info);
+      }
+    }
+
+    responseClient({ req, res, message: "OTP is sent to your email..!" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const resetNewPassword = async (req, res, next) => {
+  try {
+    const { email, password, otp } = req.body;
+    //Check OTP in session table
+    const sessions = await getSession({
+      token: otp,
+      association: email,
+    });
+    if (sessions?._id) {
+      // Encrypt the password
+      const hashPass = hashPassword(password);
+      //Update the encrypted password in user table
+      const user = await updateUser({ email }, { password: hashPass });
+      if (user?._id) {
+        //Send Email Notification
+        userProfileUpdatedNotificationEmail({ name: user.fName, email });
+        return responseClient({
+          req,
+          res,
+          message:
+            "Your password has been updated successfully. You may login now..!",
+        });
+      }
+    }
+    responseClient({
+      req,
+      res,
+      message: "Invalid data or tolen is expired!",
+      statusCode: 400,
+    });
   } catch (error) {
     next(error);
   }

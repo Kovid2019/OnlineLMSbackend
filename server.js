@@ -1,5 +1,4 @@
 import express from "express";
-import usersRoute from "./src/routes/usersRoute.js";
 const app = express();
 const PORT = process.env.PORT || 8000;
 
@@ -15,10 +14,13 @@ app.use(express.json());
 
 //API endpoints
 import authRoute from "./src/routes/authRoute.js";
+import usersRoute from "./src/routes/usersRoute.js";
+import booksRoute from "./src/routes/booksRoute.js";
 import { errorHandler } from "./src/middleware/errorHandler.js";
 import { responseClient } from "./src/middleware/responseClient.js";
 app.use("/api/v1/auth", authRoute);
-app.use("/api/v1/user", usersRoute);
+app.use("/api/v1/users", usersRoute);
+app.use("/api/v1/books", booksRoute);
 
 //Server status
 app.get("/", (req, res) => {
