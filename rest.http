@@ -67,9 +67,14 @@ Content-Type: application/json
 }
 
 
-#### Bok API
-### Get all books
+#### Book API
+
+### Get all books by user (Only active)
 GET {{rootUrl}}/api/v1/books
+
+### Get all books by admin (All books, both active and inactive)
+GET {{rootUrl}}/api/v1/books/admin
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzQ3Mzc3MDkyLCJleHAiOjE3NDczNzc5OTJ9.4Lphz3s2LJsb7g8l6WD18MN7aygcalsYb65jKhs6Afw
 
 ### Insert book(s)
 POST {{rootUrl}}/api/v1/books

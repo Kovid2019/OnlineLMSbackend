@@ -6,6 +6,12 @@ const bookSchema = new mongoose.Schema(
       type: String,
       default: "inactive", //active, inactive
     },
+    slug: {
+      type: String,
+      unique: true,
+      index: 1,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -39,6 +45,10 @@ const bookSchema = new mongoose.Schema(
     available: {
       type: Boolean,
       default: false,
+    },
+    expectedAvailable: {
+      type: Date,
+      default: null,
     },
     averageRating: {
       type: Number,
