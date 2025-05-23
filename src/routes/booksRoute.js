@@ -1,14 +1,19 @@
 import express from "express";
 import {
+  deleteBookController,
   getAllBooksController,
   getAllPublicBooksController,
   insertNewBook,
+  updateBookController,
 } from "../controllers/bookController.js";
 import {
   adminAuthMiddleware,
   userAuthMiddleware,
 } from "../middleware/authMiddleware.js";
-import { newBookDataValidation } from "../middleware/validations/bookDataValidation.js";
+import {
+  newBookDataValidation,
+  updateBookDataValidation,
+} from "../middleware/validations/bookDataValidation.js";
 import { get } from "mongoose";
 const router = express.Router();
 
@@ -30,6 +35,21 @@ router.post(
   adminAuthMiddleware,
   newBookDataValidation,
   insertNewBook
+);
+//Update Book
+router.put(
+  "/",
+  userAuthMiddleware,
+  adminAuthMiddleware,
+  updateBookDataValidation,
+  updateBookController
+);
+//Delete Book
+router.delete(
+  "/:_id",
+  userAuthMiddleware,
+  adminAuthMiddleware,
+  deleteBookController
 );
 
 export default router;

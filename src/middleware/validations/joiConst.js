@@ -28,3 +28,9 @@ export const ISBN = Joi.string()
     "string.pattern.base": "ISBN must be either 10 or 13 digits long",
   });
 export const ISBN_REQ = ISBN.required();
+export const _ID = Joi.string();
+export const _ID_REQ = _ID.required();
+export const STATUS = Joi.string().valid("active", "inactive");
+export const STATUS_REQ = STATUS.required();
+export const EXPECTEDAVAILABLE = Joi.date().allow(null, "");
+export const EXPECTEDAVAILABLE_REQ = EXPECTEDAVAILABLE.required();
