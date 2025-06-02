@@ -7,15 +7,20 @@ import {
   updateBook,
 } from "../models/book/BookModel.js";
 import slugify from "slugify";
+import { deleteFile, deleteUploadedFiles } from "../utils/fileUtil.js";
 
 export const insertNewBook = async (req, res, next) => {
+  console.log(req.file);
+
   try {
     const { fName, _id } = req.userInfo;
+    const { path } = req.file;
     const obj = {
       ...req.body, // Get all the data from the request body.
       slug: slugify(req.body.title, { lower: true }), // Create a slug from the title.
       addedBy: { name: fName, adminId: _id },
       lastUpdateBy: { name: fName, adminId: _id },
+      imgUrl: path,
     };
     const book = await createNewBook(obj);
     book._id
@@ -28,6 +33,10 @@ export const insertNewBook = async (req, res, next) => {
         });
   } catch (error) {
     if (error.message.includes("E11000 duplicate key")) {
+      // If the error is a duplicate key error, delete the uploaded file.
+      if (req.file || Array.isArray(req.files)) {
+        deleteUploadedFiles(req);
+      }
       return responseClient({
         req,
         res,
@@ -69,6 +78,27 @@ export const getAllBooksController = async (req, res, next) => {
 export const updateBookController = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
+
+    req.body.imageList = req.body.imageList.split(",");
+    //Remove imgToDelete list from imageList
+    if (req.body.imgToDelete && !Array.isArray(req.body.imgToDelete)) {
+      req.body.imgToDelete = [req.body.imgToDelete];
+    }
+    //
+    if (req.body.imgToDelete?.length) {
+      req.body.imageList = req.body.imageList.filter(
+        (img) => !req.body.imgToDelete.includes(img)
+      );
+      req.body.imgToDelete.map((img) => deleteFile(img));
+    }
+
+    if (Array.isArray(req.files)) {
+      req.body.imageList = [
+        ...req.body.imageList,
+        ...req.files.map((obj) => obj.path),
+      ];
+    }
+
     const obj = {
       ...req.body, // Get all the data from the request body.
 
@@ -91,6 +121,7 @@ export const deleteBookController = async (req, res, next) => {
   try {
     const { _id } = req.params;
     const book = await deleteBook(_id);
+    book.imageList.map((img) => deleteFile(img)); // Delete all images associated with the book.
     book?._id
       ? responseClient({
           req,

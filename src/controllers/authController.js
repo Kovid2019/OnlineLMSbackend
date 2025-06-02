@@ -163,7 +163,7 @@ export const generateOTP = async (req, res, next) => {
       const session = await createNewSession({
         token: otp,
         association: email,
-        expire: new Date(Date.now() + 5 * 60 * 1000), // 5 minutes expiration
+        expire: new Date(Date.now() + 25 * 60 * 1000), // 5 minutes expiration
       });
       if (session?._id) {
         console.log(session);

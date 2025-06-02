@@ -8,13 +8,13 @@ Get {{rootUrl}}
 ### Auth API
 
 ### Post new user
-POST {{rootUrl}}/api/v1/auth/register
+POST {{rootUrl}}/api/v1/auth/registers
 Content-Type: application/json
 
 {
     "fName": "Kovid",
     "lName": "Kunduru",
-    "email": "a3@a.com",
+    "email": "a7@a.com",
     "phone": "017576789",
     "password": "Roh@123"
     
@@ -24,8 +24,8 @@ POST {{rootUrl}}/api/v1/auth/activate-user
 Content-Type: application/json
 
 {
-    "sessionId": "67cce6ecfb70492ecd5a52a1",
-    "t": "bfb1ea3b-9a0c-42aa-abf9"
+    "sessionId": "6831bcd77b5dc8f1c88f77cd",
+    "t": "139e9948-f19d-4006-b4be-7aea783d496c"
     
 }
 

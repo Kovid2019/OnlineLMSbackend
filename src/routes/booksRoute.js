@@ -15,6 +15,7 @@ import {
   updateBookDataValidation,
 } from "../middleware/validations/bookDataValidation.js";
 import { get } from "mongoose";
+import { upload } from "../utils/multer.js";
 const router = express.Router();
 
 //Public API to get all books
@@ -33,7 +34,9 @@ router.post(
   "/",
   userAuthMiddleware,
   adminAuthMiddleware,
-  newBookDataValidation,
+  upload.single("image"), // Allow single image upload
+  // upload.array("image", 2), // Allow multiple images, max 2
+  newBookDataValidation, //Once you upload the file, only then you have data for Server side validation(Joi).
   insertNewBook
 );
 //Update Book
@@ -41,6 +44,7 @@ router.put(
   "/",
   userAuthMiddleware,
   adminAuthMiddleware,
+  upload.array("images", 2), // Allow multiple images, max 2
   updateBookDataValidation,
   updateBookController
 );

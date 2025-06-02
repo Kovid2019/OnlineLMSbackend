@@ -19,6 +19,10 @@ export const SHORT_STR = Joi.string().min(1).max(100);
 export const SHORT_STR_REQ = SHORT_STR.required();
 export const LONG_STR = Joi.string().min(1).max(5000);
 export const LONG_STR_REQ = LONG_STR.required();
+
+export const STR_ARRAY = Joi.array().items(Joi.string());
+export const STR_ARRAY_REQ = STR_ARRAY.required();
+
 export const YEAR = Joi.number().min(1901).max(new Date().getFullYear());
 export const YEAR_REQ = YEAR.required();
 // export const ISBN = Joi.number().min(1000000000).max(99999999999999);

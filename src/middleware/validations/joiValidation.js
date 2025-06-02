@@ -1,3 +1,4 @@
+import { deleteUploadedFiles } from "../../utils/fileUtil.js";
 import { responseClient } from "../responseClient.js";
 import Joi from "joi";
 
@@ -10,6 +11,9 @@ export const validateData = ({ req, res, next, obj }) => {
 
   //If pass, go next() or response error from here.
   if (error) {
+    if (req.file || Array.isArray(req.files)) {
+      deleteUploadedFiles(req);
+    }
     return responseClient({
       req,
       res,

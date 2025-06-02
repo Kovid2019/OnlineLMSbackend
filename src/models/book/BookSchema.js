@@ -28,6 +28,14 @@ const bookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+
+    imageList: [
+      {
+        type: String,
+        default: [],
+      },
+    ],
+
     isbn: {
       type: Number,
       unique: true,
@@ -64,9 +72,6 @@ const bookSchema = new mongoose.Schema(
     lastUpdateBy: {
       name: {
         type: String,
-      },
-      adminId: {
-        type: mongoose.Types.ObjectId,
       },
     },
   },
