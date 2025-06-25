@@ -2,6 +2,7 @@ import { responseClient } from "../middleware/responseClient.js";
 import {
   createNewBook,
   deleteBook,
+  findABook,
   getAllBooks,
   getAllPublicBooks,
   updateBook,
@@ -61,6 +62,30 @@ export const getAllPublicBooksController = async (req, res, next) => {
     next(error);
   }
 };
+export const getSinglePublicBookController = async (req, res, next) => {
+  try {
+    const { slug } = req.params;
+    const payload = await findABook({ slug, status: "active" });
+    if (payload) {
+      responseClient({
+        req,
+        res,
+        payload,
+        message: " Your book fetched successfully!",
+      });
+    } else {
+      responseClient({
+        req,
+        res,
+        payload,
+        statusCode: 400,
+        message: "Something went wrong. Couldn't fetch book",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
 export const getAllBooksController = async (req, res, next) => {
   try {
     const payload = await getAllBooks();
@@ -85,7 +110,7 @@ export const updateBookController = async (req, res, next) => {
       req.body.imgToDelete = [req.body.imgToDelete];
     }
     //
-    if (req.body.imgToDelete?.length) {
+    if (req.body?.imgToDelete?.length) {
       req.body.imageList = req.body.imageList.filter(
         (img) => !req.body.imgToDelete.includes(img)
       );
@@ -105,7 +130,7 @@ export const updateBookController = async (req, res, next) => {
       lastUpdateBy: { name: fName, adminId: _id },
     };
     const book = await updateBook(obj);
-    book._id
+    book?._id
       ? responseClient({ req, res, message: "Book Updated successfully!" })
       : responseClient({
           req,

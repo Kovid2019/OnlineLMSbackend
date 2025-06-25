@@ -40,7 +40,7 @@ Content-Type: application/json
 }
 ### Get user's profile
 GET  {{rootUrl}}/api/v1/user/profile
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzQyNDQ1NTg0LCJleHAiOjE3NDI0NDY0ODR9.XMakYjxnvrkKvhfPq2KbO31v6DU5zMmN-ARy8rWSvC8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzQ5MDc4NDY4LCJleHAiOjE3NDkwNzkzNjh9.f_M8OzDqy9X9UMTX9e4TqvwuY_-EmX3512nHvL7RKAA
 
 
 ### Renew AccessJWT 
@@ -68,6 +68,9 @@ Content-Type: application/json
 
 
 #### Book API
+
+### Get single book
+GET {{rootUrl}}/api/v1/books/public/clean-architecture1
 
 ### Get all books by user (Only active)
 GET {{rootUrl}}/api/v1/books

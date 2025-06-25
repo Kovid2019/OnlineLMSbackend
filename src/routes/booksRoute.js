@@ -3,6 +3,7 @@ import {
   deleteBookController,
   getAllBooksController,
   getAllPublicBooksController,
+  getSinglePublicBookController,
   insertNewBook,
   updateBookController,
 } from "../controllers/bookController.js";
@@ -20,6 +21,9 @@ const router = express.Router();
 
 //Public API to get all books
 router.get("/", getAllPublicBooksController);
+
+//Public API to get single book.
+router.get("/public/:slug", getSinglePublicBookController);
 
 //Admin Only access to get all books
 router.get(

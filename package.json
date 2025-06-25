@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon --env-file=.env server.js",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "import-book": "nodemon --env-file=.env ./src/seeds/bookSeeds/importData.js"
   },
   "keywords": [],
   "author": "Kovid Kunduru",
