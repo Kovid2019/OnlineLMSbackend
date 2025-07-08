@@ -4,7 +4,9 @@ import Joi from "joi";
 
 export const validateData = ({ req, res, next, obj }) => {
   //Create a schema or rules for the data to be validated
-  const schema = Joi.object(obj);
+  const schema = Array.isArray(req.body)
+    ? Joi.array().items(obj).min(1).required()
+    : Joi.object(obj);
 
   //Pass your data, req.body to the schema
   const { error } = schema.validate(req.body);

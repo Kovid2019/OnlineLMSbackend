@@ -77,7 +77,7 @@ GET {{rootUrl}}/api/v1/books
 
 ### Get all books by admin (All books, both active and inactive)
 GET {{rootUrl}}/api/v1/books/admin
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzQ3Mzc3MDkyLCJleHAiOjE3NDczNzc5OTJ9.4Lphz3s2LJsb7g8l6WD18MN7aygcalsYb65jKhs6Afw
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzUxODU3NTE4LCJleHAiOjE3NTE4NTg0MTh9.q653HZ31LiFak_0ukNMKQtErnrZTv4oTJZn7PP3pnJk
 
 ### Insert book(s)
 POST {{rootUrl}}/api/v1/books
@@ -96,3 +96,35 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY
         
             
       }
+
+
+### ======= Borrow API
+### Insert new borrow 
+POST {{rootUrl}}/api/v1/borrows
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzUxOTQ4NzU3LCJleHAiOjE3NTE5NDk2NTd9.9l300_xta_BKgiR8fdtARtddIzoqnJA96OLxIa-rcmE
+
+[
+    {
+            "bookTitle" : "Clean Code: A Handbook of Agile Software Craftsmanship",
+            "bookId" : "683e9363cebf434e9c6de332",
+            
+            "thumbnail" : "public/img/1748931465234-773304245-bookImage1.jpg"
+            
+      },
+    {
+            "bookTitle" : "Clean Code: A Handbook of Agile Software Craftsmanship",
+            "bookId" : "683e9363cebf434e9c6de332",
+            
+            "thumbnail" : "public/img/1748931465234-773304245-bookImage1.jpg"
+            
+      },
+    {
+            "bookTitle" : "Clean Code: A Handbook of Agile Software Craftsmanship",
+            "bookId" : "683e9363cebf434e9c6de332",
+            
+            "thumbnail" : "public/img/1748931465234-773304245-bookImage1.jpg"
+            
+      }
+      
+      ]
