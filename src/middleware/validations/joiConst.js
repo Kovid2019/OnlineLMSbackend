@@ -38,3 +38,5 @@ export const STATUS = Joi.string().valid("active", "inactive");
 export const STATUS_REQ = STATUS.required();
 export const EXPECTEDAVAILABLE = Joi.date().allow(null, "");
 export const EXPECTEDAVAILABLE_REQ = EXPECTEDAVAILABLE.required();
+
+export const RATING = Joi.number().min(1).max(5);

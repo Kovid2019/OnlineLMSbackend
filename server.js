@@ -21,10 +21,12 @@ import booksRoute from "./src/routes/booksRoute.js";
 import { errorHandler } from "./src/middleware/errorHandler.js";
 import { responseClient } from "./src/middleware/responseClient.js";
 import borrowsRoute from "./src/routes/borrowsRoute.js";
+import reviewsRoute from "./src/routes/reviewsRoute.js";
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/books", booksRoute);
 app.use("/api/v1/borrows", borrowsRoute);
+app.use("/api/v1/reviews", reviewsRoute);
 app.use((req, res) => {
   throw new Error("Page not found");
 });

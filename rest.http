@@ -82,7 +82,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY
 ### Insert book(s)
 POST {{rootUrl}}/api/v1/books
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzQ2NzY1MDE0LCJleHAiOjE3NDY3NjU5MTR9.s9lu6aHu6MZCEiuaty3heLbyItpDJhZXJEI0GixqOX4
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzUxOTQ4NzU3LCJleHAiOjE3NTE5NDk2NTd9.9l300_xta_BKgiR8fdtARtddIzoqnJA96OLxIa-rcmE
 
 {
             "title" : "Javascript the good parts",
@@ -102,7 +102,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY
 ### Insert new borrow 
 POST {{rootUrl}}/api/v1/borrows
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzUxOTQ4NzU3LCJleHAiOjE3NTE5NDk2NTd9.9l300_xta_BKgiR8fdtARtddIzoqnJA96OLxIa-rcmE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzUxOTY1ODIzLCJleHAiOjE3NTE5NjY3MjN9.fbEXfhnBtLxJeBZ4_V6psr0V_Cu1oTAu3rUfcsrIg7Q
 
 [
     {
@@ -111,20 +111,56 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY
             
             "thumbnail" : "public/img/1748931465234-773304245-bookImage1.jpg"
             
-      },
+      }
+   
+      ]
+
+
+### Return book
+PATCH {{rootUrl}}/api/v1/borrows
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzU3MzM5NzM5LCJleHAiOjE3NTczNDA2Mzl9.k5bn4IkrgKP-BOWPbb36JteBzWgcWtuUgNYSuh_05B4
+
     {
-            "bookTitle" : "Clean Code: A Handbook of Agile Software Craftsmanship",
-            "bookId" : "683e9363cebf434e9c6de332",
             
-            "thumbnail" : "public/img/1748931465234-773304245-bookImage1.jpg"
+            "_id" : "68b9a11a7a1acb86178a7d5e"
             
-      },
-    {
-            "bookTitle" : "Clean Code: A Handbook of Agile Software Craftsmanship",
-            "bookId" : "683e9363cebf434e9c6de332",
             
-            "thumbnail" : "public/img/1748931465234-773304245-bookImage1.jpg"
             
       }
+
+### ======= Reviews
+### Post new review
+POST {{rootUrl}}/api/v1/reviews
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzU3NDgzNTE4LCJleHAiOjE3NTc0ODQ0MTh9.PUbabxyS3eYQjE8rHtEEKYnU3rK6pPiMKCq4R-0Ucyo
+
+    {
+            
+             "bookId": "683e9363cebf434e9c6de335",
+             "title": "Test review title",
+             "reviewMessage": "Awesome book. More to come",
+             "rating": 4,
+             "borrowId": "68b9a11a7a1acb86178a7d5e"
+            
+            
+            
+      }
+
+### Fetch all reviews
+GET {{rootUrl}}/api/v1/reviews
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzU4MzM5NDIzLCJleHAiOjE3NTgzNDAzMjN9.ABcYF696hP_-jeVi_8Wj525nGKghs3wgQzeQGnHinMA
+
+### Update review
+PATCH {{rootUrl}}/api/v1/reviews/admin
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImEyQGEuY29tIiwiaWF0IjoxNzU5MzI4OTY2LCJleHAiOjE3NTkzMjk4NjZ9.AFfa_cmIXN1W4GNK6WOF4ZTFPW1q8joJe6w4ZP6B76w
+
+{
+    "_id" : "68c11221e5eb29978896d8aa",
+    "isApproved" : true
+}
+
+   
       
-      ]
